@@ -140,7 +140,7 @@ static void tcp_china_init(struct sock *sk)
 
 static void tcp_china_rtt_calc(struct sock *sk, const struct ack_sample *sample)
 {
-	s32 rtt_us = sample.rtt_us;
+	s32 rtt_us = sample->rtt_us;
 	struct china *ca = inet_csk_ca(sk);
 	u32 rtt, artt, minrtt;
 
