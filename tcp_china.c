@@ -188,10 +188,10 @@ static void tcp_china_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 		return;
 
 	/* Adjust the cwnd */
-	/*if (tp->snd_cwnd <= tp->snd_ssthresh) {
+	if (tp->snd_cwnd <= tp->snd_ssthresh / 2) {
 		tcp_slow_start(tp, acked);
 	}
-	else {*/
+	else {
 		/* Fast increase (W = W + fast_increase(W)/W)
 		 *
 		 * Fast increase is done with the HSTCP algorithm.
@@ -225,7 +225,7 @@ static void tcp_china_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 				tp->snd_cwnd++;
 			}
 		}
-//	}
+	}
 }
 
 static u32 tcp_china_ssthresh(struct sock *sk)
