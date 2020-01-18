@@ -1181,5 +1181,6 @@ MODULE_AUTHOR("Van Jacobson <vanj@google.com>");
 MODULE_AUTHOR("Neal Cardwell <ncardwell@google.com>");
 MODULE_AUTHOR("Yuchung Cheng <ycheng@google.com>");
 MODULE_AUTHOR("Soheil Hassas Yeganeh <soheil@google.com>");
+MODULE_AUTHOR("Kai Liu <kliucn@icloud.com>");
 MODULE_LICENSE("Dual BSD/GPL");
-MODULE_DESCRIPTION("TCP BBR (Bottleneck Bandwidth and RTT)");
+MODULE_DESCRIPTION("TCP BBR Modified for China");
