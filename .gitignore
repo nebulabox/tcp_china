@@ -5,4 +5,4 @@ Module.symvers
 *.o
 *.mod.c
 modules.order
-.vscode/
+.vscode
