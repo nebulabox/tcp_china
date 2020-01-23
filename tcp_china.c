@@ -131,12 +131,14 @@ struct bbr {
 /* Window length of bw filter (in rounds): */
 static const int bbr_bw_rtts = CYCLE_LEN + 2;
 /* Window length of min_rtt filter (in sec): */
-static const u32 bbr_min_rtt_win_sec = 10;
+// static const u32 bbr_min_rtt_win_sec = 10;
+static const u32 bbr_min_rtt_win_sec = 5;
 /* Minimum time (in ms) spent at bbr_cwnd_min_target in BBR_PROBE_RTT mode: */
 // static const u32 bbr_probe_rtt_mode_ms = 200;
-static const u32 bbr_probe_rtt_mode_ms = 400;
+static const u32 bbr_probe_rtt_mode_ms = 500;
 /* Skip TSO below the following bandwidth (bits/sec): */
-static const int bbr_min_tso_rate = 1200000;
+// static const int bbr_min_tso_rate = 1200000;
+static const int bbr_min_tso_rate = 600000;
 
 /* Pace at ~1% below estimated bw, on average, to reduce queue at bottleneck.
  * In order to help drive the network toward lower queues and low latency while
@@ -166,7 +168,7 @@ static const int bbr_cwnd_gain  = BBR_UNIT * 2;
 // 	BBR_UNIT, BBR_UNIT, BBR_UNIT	/* without creating excess queue... */
 // };
 static const int bbr_pacing_gain[] = {
-	BBR_UNIT * 3 / 2,	/* probe for more available bw */
+	BBR_UNIT * 5 / 4,	/* probe for more available bw */
 	BBR_UNIT * 3 / 4,	/* drain queue and/or yield bw to other flows */
 	// BBR_UNIT, BBR_UNIT, BBR_UNIT,	/* cruise at 1.0*bw to utilize pipe, */
 	BBR_UNIT, BBR_UNIT, BBR_UNIT	/* without creating excess queue... */
@@ -184,8 +186,7 @@ static const u32 bbr_cwnd_min_target = 8;
 
 /* To estimate if BBR_STARTUP mode (i.e. high_gain) has filled pipe... */
 /* If bw has increased significantly (1.25x), there may be more bw available: */
-// static const u32 bbr_full_bw_thresh = BBR_UNIT * 5 / 4;
-static const u32 bbr_full_bw_thresh = BBR_UNIT * 3 / 2;
+static const u32 bbr_full_bw_thresh = BBR_UNIT * 5 / 4;
 /* But after 3 rounds w/o significant bw growth, estimate pipe is full: */
 // static const u32 bbr_full_bw_cnt = 3;
 static const u32 bbr_full_bw_cnt = 6;
@@ -194,7 +195,8 @@ static const u32 bbr_full_bw_cnt = 6;
 /* The minimum number of rounds in an LT bw sampling interval: */
 static const u32 bbr_lt_intvl_min_rtts = 4;
 /* If lost/delivered ratio > 20%, interval is "lossy" and we may be policed: */
-static const u32 bbr_lt_loss_thresh = 50;
+// static const u32 bbr_lt_loss_thresh = 50;
+static const u32 bbr_lt_loss_thresh = 80;
 /* If 2 intervals have a bw ratio <= 1/8, their bw is "consistent": */
 static const u32 bbr_lt_bw_ratio = BBR_UNIT / 8;
 /* If 2 intervals have a bw diff <= 4 Kbit/sec their bw is "consistent": */
@@ -206,11 +208,13 @@ static const u32 bbr_lt_bw_max_rtts = 48;
 /* Gain factor for adding extra_acked to target cwnd: */
 static const int bbr_extra_acked_gain = BBR_UNIT;
 /* Window length of extra_acked window. */
-static const u32 bbr_extra_acked_win_rtts = 5;
+// static const u32 bbr_extra_acked_win_rtts = 5;
+static const u32 bbr_extra_acked_win_rtts = 10;
 /* Max allowed val for ack_epoch_acked, after which sampling epoch is reset */
 static const u32 bbr_ack_epoch_acked_reset_thresh = 1U << 20;
 /* Time period for clamping cwnd increment due to ack aggregation */
-static const u32 bbr_extra_acked_max_us = 100 * 1000;
+// static const u32 bbr_extra_acked_max_us = 100 * 1000;
+static const u32 bbr_extra_acked_max_us = 400 * 1000;
 
 static void bbr_check_probe_rtt_done(struct sock *sk);
 
